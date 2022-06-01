@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="University.App.Views.Forms.LoginPage">
+             x:Class="University.App.Views.Forms.LoginPage"
+             WidthRequest="20" Padding="20" BackgroundColor="Navy">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Spacing="20" Padding="50" VerticalOptions="Center">
+            <Entry Placeholder="Email"></Entry>
+            <Entry Placeholder="Password" IsPassword="True"></Entry>
+            <Button Text="Log In" TextColor="White" BackgroundColor="##ff77D065"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
