@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
+using University.App.DTOs;
+using University.App.Views.Forms;
 using Xamarin.Forms;
 
 namespace University.App.ViewModels.Forms
@@ -29,7 +31,8 @@ namespace University.App.ViewModels.Forms
         #region Methods
         async void Login()
         {
-            var data = new { email = this.Email, password = this.Password };
+            //var data = new { email = this.Email, password = this.Password };
+            var data = new LoginReqDTO { Email = this.Email, Password = this.Password };
             var json = JsonConvert.SerializeObject(data);
             var req = new StringContent(json, Encoding.UTF8, "application/json");
             var url = "https://reqres.in/api/login";
@@ -38,26 +41,44 @@ namespace University.App.ViewModels.Forms
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsync(url, req);
+                var statusCode = response.StatusCode;
+                result = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                 {
                     //TODO: Logic App
-                    await Application.Current.MainPage.DisplayAlert("Notify", "Login OK", "Cancel");
-                }
+                    var loginRes = JsonConvert.DeserializeObject<LoginResDTO>(result);
+                    var token = loginRes.Token;
+                    await Application.Current.MainPage.DisplayAlert("Notify", token, "Cancel");
 
-                var statusCode = response.StatusCode;
-                result = await response.Content.ReadAsStringAsync();
+                    //redirect
+                    await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                }
+                else
+                {
+                    var loginResFail = JsonConvert.DeserializeObject<LoginResFailDTO>(result);
+                    var error = loginResFail.Error;
+                    await Application.Current.MainPage.DisplayAlert("Notify", error, "Cancel");
+                }
             }
+        }
+
+        async void Register()
+        {
+            //TODO: Cambiar a RegisterPage
+            await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
         }
         #endregion
 
         #region Commands
         public Command LoginCommand { get; set; }
+        public Command RegisterCommand { get; set; }
         #endregion
 
         public LoginViewModel()
         {
             this.LoginCommand = new Command(Login);
+            this.RegisterCommand = new Command(Register);
         }
     }
 }

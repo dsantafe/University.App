@@ -11,9 +11,11 @@
 
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="50" VerticalOptions="Center">
+            <Image Source="login" HeightRequest="250" />
             <Entry Placeholder="Email" Text="{Binding Email}" />
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
             <Button Text="Log In" TextColor="White" BackgroundColor="Black" Command="{Binding LoginCommand}" />
+            <Button Text="Register" TextColor="White" BackgroundColor="Black" Command="{Binding RegisterCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
