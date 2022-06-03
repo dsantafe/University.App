@@ -15,7 +15,7 @@
             <Entry Placeholder="Email" Text="{Binding Email}" />
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
             <Button Text="Log In" TextColor="White" BackgroundColor="Black" Command="{Binding LoginCommand}" />
-            <Button Text="Register" TextColor="White" BackgroundColor="Black" Command="{Binding RegisterCommand}" />
+            <Button FontAttributes="Italic" Text="Register" TextColor="Black" BackgroundColor="Transparent" Command="{Binding RegisterCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
